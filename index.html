@@ -152,7 +152,7 @@
   const input  = document.getElementById('cmd-input');
   const terminal = document.getElementById('terminal');
 
-  let lang = 'id';
+  let lang = localStorage.getItem('lang') || 'id';
 
   function escapeHtml(str){
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -210,19 +210,19 @@ BAHASA
   Bahasa Indonesia — Aktif
   English — Menengah`,
 
-    experience: `NOC STAFF — PT. Inovasi Tjaraka Buana (MyNet), Bandung
+    experience: `CUSTOMER SUPPORT (MAGANG) — PT. Inovasi Tjaraka Buana (MyNet), Bandung
+Jan 2024 – Des 2024
+
+  > Penanganan keluhan pelanggan via telepon, WhatsApp & ticketing
+  > Informasi layanan, paket internet, billing & solusi teknis
+  > Identifikasi masalah & panduan troubleshooting modem/ONU
+
+NOC STAFF — PT. Inovasi Tjaraka Buana (MyNet), Bandung
 Jan 2025 – Jun 2026
 
   > Monitoring performa jaringan 24/7 via Zabbix, Grafana & MRTG
   > Analisis traffic, packet loss, down link & troubleshooting remote
   > Konfigurasi VLAN, routing, firewall, backup & dokumentasi IP
-
-FREELANCE REMOTE NOC — PT 3D Tech, Batam
-Jul 2025 – Jun 2026
-
-  > Monitoring jaringan & identifikasi gangguan konektivitas remote
-  > Troubleshooting perangkat & koordinasi eskalasi teknis
-  > Dokumentasi monitoring, laporan gangguan & update status berkala
 
 FREELANCE REMOTE HELPDESK — Nusantara Global Exchange (NGX), Batam
 Jul 2025 – Jun 2026
@@ -231,12 +231,12 @@ Jul 2025 – Jun 2026
   > Troubleshooting perangkat, koneksi internet & permasalahan user
   > Pencatatan tiket & dokumentasi kendala teknis
 
-CUSTOMER SUPPORT — PT. Inovasi Tjaraka Buana (MyNet), Bandung
-Jan 2024 – Des 2024
+FREELANCE REMOTE NOC — PT 3D Tech, Batam
+Jul 2025 – Jun 2026
 
-  > Penanganan keluhan pelanggan via telepon, WhatsApp & ticketing
-  > Informasi layanan, paket internet, billing & solusi teknis
-  > Identifikasi masalah & panduan troubleshooting modem/ONU
+  > Monitoring jaringan & identifikasi gangguan konektivitas remote
+  > Troubleshooting perangkat & koordinasi eskalasi teknis
+  > Dokumentasi monitoring, laporan gangguan & update status berkala
 
 Status: Tersedia mulai Juli 2026`,
 
@@ -334,19 +334,19 @@ LANGUAGES
   Indonesian — Active
   English — Intermediate`,
 
-    experience: `NOC STAFF — PT. Inovasi Tjaraka Buana (MyNet), Bandung
+    experience: `CUSTOMER SUPPORT (INTERNSHIP) — PT. Inovasi Tjaraka Buana (MyNet), Bandung
+Jan 2024 – Dec 2024
+
+  > Customer complaint handling via phone, WhatsApp & ticketing
+  > Service info, internet packages, billing & technical solutions
+  > Issue identification & modem/ONU troubleshooting guidance
+
+NOC STAFF — PT. Inovasi Tjaraka Buana (MyNet), Bandung
 Jan 2025 – Jun 2026
 
   > 24/7 network performance monitoring using Zabbix, Grafana & MRTG
   > Traffic analysis, packet loss, downlink & remote troubleshooting
   > VLAN, routing, firewall config, backup & IP documentation
-
-FREELANCE REMOTE NOC — PT 3D Tech, Batam
-Jul 2025 – Jun 2026
-
-  > Network monitoring & remote connectivity issue identification
-  > Device troubleshooting & technical escalation coordination
-  > Monitoring docs, incident reports & periodic status updates
 
 FREELANCE REMOTE HELPDESK — Nusantara Global Exchange (NGX), Batam
 Jul 2025 – Jun 2026
@@ -355,12 +355,12 @@ Jul 2025 – Jun 2026
   > Device, internet & user issue troubleshooting
   > Ticket logging & technical issue documentation
 
-CUSTOMER SUPPORT — PT. Inovasi Tjaraka Buana (MyNet), Bandung
-Jan 2024 – Dec 2024
+FREELANCE REMOTE NOC — PT 3D Tech, Batam
+Jul 2025 – Jun 2026
 
-  > Customer complaint handling via phone, WhatsApp & ticketing
-  > Service info, internet packages, billing & technical solutions
-  > Issue identification & modem/ONU troubleshooting guidance
+  > Network monitoring & remote connectivity issue identification
+  > Device troubleshooting & technical escalation coordination
+  > Monitoring docs, incident reports & periodic status updates
 
 Status: Available from July 2026`,
 
@@ -487,21 +487,25 @@ tcp    me         whatsapp     FILTERED (by request)`,
   const btnID = document.getElementById('btn-id');
   const btnEN = document.getElementById('btn-en');
 
-  function setLang(l){
+  function setLang(l, silent){
     lang = l;
+    localStorage.setItem('lang', l);
     document.documentElement.lang = l;
     btnID.classList.toggle('active', l === 'id');
     btnEN.classList.toggle('active', l === 'en');
-    const msg = l === 'id'
-      ? '-- Bahasa diubah ke Indonesia --'
-      : '-- Language switched to English --';
-    printLine('<span class="muted">' + msg + '</span>');
-    scrollToBottom();
+    if(!silent){
+      const msg = l === 'id'
+        ? '-- Bahasa diubah ke Indonesia --'
+        : '-- Language switched to English --';
+      printLine('<span class="muted">' + msg + '</span>');
+      scrollToBottom();
+    }
     input.focus();
   }
 
   btnID.addEventListener('click', function(){ if(lang !== 'id') setLang('id'); });
   btnEN.addEventListener('click', function(){ if(lang !== 'en') setLang('en'); });
+  setLang(lang, true);
 
   // History
   let history = [];
@@ -547,7 +551,10 @@ tcp    me         whatsapp     FILTERED (by request)`,
     if(e.target.id !== 'cmd-input') input.focus();
   });
 
-  printBlock("Login terakhir: " + new Date().toDateString() + "\nSelamat datang — ketik 'help' atau tap perintah di bawah.\nWelcome — type 'help' or tap a command below.");
+  const welcome = lang === 'id'
+    ? "Login terakhir: " + new Date().toDateString() + "\nSelamat datang — ketik 'help' atau tap perintah di bawah."
+    : "Last login: " + new Date().toDateString() + "\nWelcome — type 'help' or tap a command below.";
+  printBlock(welcome);
   input.focus();
 </script>
 </body>
