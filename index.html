@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Angga — NOC Staff at Mynet/Evonix. Network monitoring, incident response, and infrastructure automation. Based in Malang, Indonesia." />
+<meta property="og:title" content="Angga — Terminal Portfolio" />
+<meta property="og:description" content="NOC Staff specializing in Zabbix, Grafana, MikroTik, and network automation. Available from July 2026." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://anggatok.web.id" />
+<title>Angga — Terminal Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#06080c;
+    --window:#10141b;
+    --header:#0d1117;
+    --border:#222a35;
+    --text:#d4d8dd;
+    --muted:#6b7785;
+    --accent:#5eead4;
+    --accent-soft:rgba(94,234,212,0.12);
+    --accent-border:rgba(94,234,212,0.32);
+    --path:#9099f7;
+    --font:'JetBrains Mono','Fira Code',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;min-height:100%;
+    background:radial-gradient(circle at 50% 0%, #121622 0%, #06080c 60%);
+    color:var(--text);
+    font-family:var(--font);
+  }
+  body{display:flex;justify-content:center;padding:28px 16px 20px;}
+  .wrap{width:100%;max-width:740px;display:flex;flex-direction:column;gap:14px;}
+  .terminal{
+    background:var(--window);
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 30px 70px -25px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.02);
+    display:flex;flex-direction:column;
+    height:min(70vh,560px);
+  }
+  .titlebar{
+    display:flex;align-items:center;gap:8px;
+    padding:10px 14px;
+    background:var(--header);
+    border-bottom:1px solid var(--border);
+    font-size:12px;color:var(--muted);
+  }
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .dot.red{background:#ff5f56;}
+  .dot.yellow{background:#ffbd2e;}
+  .dot.green{background:#27c93f;}
+  .titlebar .title{margin-left:6px;}
+  .output{flex:1;overflow-y:auto;padding:16px 18px;font-size:13.5px;line-height:1.6;}
+  .output::-webkit-scrollbar{width:8px;}
+  .output::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+  .output::-webkit-scrollbar-track{background:transparent;}
+  .output pre{margin:4px 0 16px;white-space:pre-wrap;word-break:break-word;font-family:var(--font);}
+  .echo{color:var(--muted);margin-top:16px;}
+  .echo:first-child{margin-top:0;}
+  .muted{color:var(--muted);}
+  .p-user,.p-host{color:var(--accent);}
+  .p-path{color:var(--path);}
+  .p-at,.p-colon{color:var(--muted);}
+  .p-dollar{color:var(--muted);margin-right:7px;}
+  .input-line{
+    display:flex;align-items:center;gap:8px;
+    padding:11px 14px;border-top:1px solid var(--border);
+    background:var(--header);
+  }
+  .prompt{white-space:nowrap;font-size:13.5px;}
+  #cmd-input{
+    flex:1;background:transparent;border:none;
+    color:var(--text);font-family:var(--font);font-size:13.5px;
+    caret-color:var(--accent);
+  }
+  #cmd-input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    background:var(--accent-soft);color:var(--accent);
+    border:1px solid var(--accent-border);border-radius:999px;
+    padding:7px 14px;font-family:var(--font);font-size:12.5px;
+    cursor:pointer;transition:background .15s ease;
+  }
+  .chip:hover{background:rgba(94,234,212,.2);}
+  .chip:active{background:rgba(94,234,212,.3);}
+  .chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .link{color:var(--accent);text-decoration:none;}
+  .link:hover{text-decoration:underline;}
+  @media (prefers-reduced-motion: reduce){
+    .chip{transition:none;}
+  }
+  #send-btn{
+    display:none;
+    background:var(--accent-soft);color:var(--accent);
+    border:1px solid var(--accent-border);border-radius:6px;
+    padding:4px 10px;font-family:var(--font);font-size:12px;
+    cursor:pointer;white-space:nowrap;
+  }
+  #send-btn:active{background:rgba(94,234,212,.3);}
+  @media (max-width:480px){
+    body{padding:16px 10px 16px;}
+    .terminal{height:min(64vh,520px);}
+    .output{font-size:13px;}
+    #send-btn{display:inline-block;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="terminal" id="terminal">
+    <div class="titlebar">
+      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+      <span class="title">guest@angga-portfolio: ~</span>
+    </div>
+    <div class="output" id="output"></div>
+    <div class="input-line">
+      <span class="prompt"><span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">angga</span><span class="p-colon">:</span><span class="p-path">~</span><span class="p-dollar">$</span></span>
+      <input id="cmd-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command input" />
+      <button id="send-btn" type="button">enter</button>
+    </div>
+  </div>
+  <div class="chips" id="chips"></div>
+</div>
+
+<noscript>This terminal portfolio needs JavaScript enabled to run.</noscript>
+
+<script>
+  const output = document.getElementById('output');
+  const input = document.getElementById('cmd-input');
+  const terminal = document.getElementById('terminal');
+
+  function escapeHtml(str){
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function printLine(html){
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    output.appendChild(div);
+  }
+  function printBlock(text){
+    const pre = document.createElement('pre');
+    pre.textContent = text;
+    output.appendChild(pre);
+  }
+  function promptHtml(){
+    return '<span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">angga</span><span class="p-colon">:</span><span class="p-path">~</span><span class="p-dollar">$</span>';
+  }
+  function printCommandEcho(raw){
+    printLine('<div class="echo">' + promptHtml() + ' ' + escapeHtml(raw) + '</div>');
+  }
+  function scrollToBottom(){
+    output.scrollTop = output.scrollHeight;
+  }
+
+  const data = {
+    whoami: `Angga
+NOC Staff @ PT Inovasi Tjaraka Buana (Mynet/Evonix)
+Based in Malang, East Java, Indonesia
+
+Handling network monitoring, incident response, and infrastructure
+automation for ISP operations. Currently transitioning toward
+Network Engineer roles while continuing my education.
+
+Type 'help' to see what I can show you.`,
+
+    skills: `MONITORING & OBSERVABILITY
+  Zabbix · Grafana · Prometheus · Cacti
+  SNMP polling · NetFlow analysis (nfdump)
+  Telegram/webhook alerting pipelines
+
+NETWORKING
+  MikroTik (PCC load balancing, auto-negotiation)
+  BIRD2 (OSPF, BGP routing)
+  SNMP monitoring on carrier-grade gear (Juniper MX204)
+
+SYSTEMS
+  Linux (Ubuntu Server 24.04) · Proxmox virtualization
+  Mail stack: Postfix / Dovecot / Roundcube
+
+SCRIPTING
+  Bash, Python (networking-focused)
+  Google Apps Script (backend automation)`,
+
+    experience: `INTERNSHIP — PT Inovasi Tjaraka Buana (Mynet/Evonix)
+Dec 2023 – Dec 2024
+
+  > Network operations support under NOC team
+  > Exposure to ISP monitoring tools and infrastructure
+
+STAFF NOC — PT Inovasi Tjaraka Buana (Mynet/Evonix)
+Jan 2025 – Jun 2026
+
+  > 24/7 network monitoring across ISP infrastructure
+  > Incident response & vendor escalation
+  > Device configuration (MikroTik & routing/switching gear)
+  > Client-facing incident reports (RFO), ID & EN
+  > Designed internal monitoring stack (Zabbix + Grafana + Prometheus),
+    documented in a 57-page internal guide
+
+Status: Available from July 2026 — pursuing further studies
+while open to Network Engineer opportunities.`,
+
+    projects: `01. Network Monitoring Stack
+    Zabbix + Grafana + Prometheus on Ubuntu 24.04 — Telegram
+    alerting, multi-server scrape targets, SNMP traffic monitoring.
+
+02. Network Automation Toolkit
+    Health-check scripts, Zabbix webhook configs, MikroTik PCC
+    & BIRD2 OSPF/BGP setup notes.
+    github.com/anggatok120-collab/porto-next
+
+03. This terminal portfolio
+    Vanilla HTML/CSS/JS — you're looking at it right now.`,
+
+
+    netstat: `Proto  Local      Foreign      State
+tcp    me         email        LISTENING
+tcp    me         linkedin     LISTENING
+tcp    me         github       LISTENING
+tcp    me         whatsapp     FILTERED (by request)`,
+
+    traceroute: `traceroute to network-engineer (career-goal), 30 hops max
+
+ 1  smk-pgri-3-malang        TKJ, graduated 2025
+ 2  staff-noc.mynet-evonix   current role, network ops
+ 3  * * *                    request timed out (in transit)
+ 4  network-engineer         target host
+
+ [side path: further-education via Universitas Brawijaya / Universitas Terbuka]`,
+
+    help: `Available commands:
+
+  whoami       short intro
+  skills       technical skills
+  experience   work history
+  projects     things I've built
+  contact      how to reach me
+  resume       download CV
+  netstat      ?
+  traceroute   ?
+  clear        clear the terminal
+  help         this menu`
+  };
+
+  function handleResume(){
+    printLine('<span class="muted">Fetching resume...</span>');
+    scrollToBottom();
+    setTimeout(function(){
+      printBlock("CV not available yet. Check back soon!");
+      scrollToBottom();
+    }, 500);
+  }
+
+  function handleContact(){
+    const pre = document.createElement('pre');
+    pre.innerHTML =
+      'Email     <a href="mailto:anggatok120@gmail.com" class="link" target="_blank" rel="noopener">anggatok120@gmail.com</a>\n' +
+      'LinkedIn  <a href="https://www.linkedin.com/in/angga-angga-1147b1369" class="link" target="_blank" rel="noopener">linkedin.com/in/angga-angga-1147b1369</a>\n' +
+      'GitHub    <a href="https://github.com/anggatok120-collab" class="link" target="_blank" rel="noopener">github.com/anggatok120-collab</a>\n' +
+      'Website   <a href="https://anggatok.web.id" class="link" target="_blank" rel="noopener">anggatok.web.id</a>\n' +
+      'Location  Malang, East Java, Indonesia';
+    output.appendChild(pre);
+    scrollToBottom();
+  }
+
+  function runCommand(raw){
+    const cmd = raw.trim().toLowerCase();
+    if(!cmd) return;
+    printCommandEcho(raw);
+    if(cmd === 'clear'){
+      output.innerHTML = '';
+      return;
+    }
+    if(cmd === 'resume'){
+      handleResume();
+      return;
+    }
+    if(cmd === 'contact'){
+      handleContact();
+      return;
+    }
+    if(data[cmd]){
+      printBlock(data[cmd]);
+    } else {
+      printBlock("command not found: " + cmd + "\nType 'help' to see available commands.");
+    }
+    scrollToBottom();
+  }
+
+  let history = [];
+  let historyIndex = -1;
+
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      const val = input.value;
+      if(val.trim()){
+        history.push(val);
+        historyIndex = history.length;
+      }
+      runCommand(val);
+      input.value = '';
+    } else if(e.key === 'ArrowUp'){
+      e.preventDefault();
+      if(historyIndex > 0){
+        historyIndex--;
+        input.value = history[historyIndex];
+      }
+    } else if(e.key === 'ArrowDown'){
+      e.preventDefault();
+      if(historyIndex < history.length - 1){
+        historyIndex++;
+        input.value = history[historyIndex];
+      } else {
+        historyIndex = history.length;
+        input.value = '';
+      }
+    }
+  });
+
+  const chipCommands = ['whoami','skills','experience','projects','contact','resume','help'];
+  const chipsContainer = document.getElementById('chips');
+  chipCommands.forEach(function(c){
+    const btn = document.createElement('button');
+    btn.className = 'chip';
+    btn.type = 'button';
+    btn.textContent = c;
+    btn.addEventListener('click', function(){
+      runCommand(c);
+      input.focus();
+    });
+    chipsContainer.appendChild(btn);
+  });
+
+  document.getElementById('send-btn').addEventListener('click', function(){
+    const val = input.value;
+    if(val.trim()){
+      history.push(val);
+      historyIndex = history.length;
+    }
+    runCommand(val);
+    input.value = '';
+    input.focus();
+  });
+
+  terminal.addEventListener('click', function(e){
+    if(e.target.id !== 'cmd-input'){
+      input.focus();
+    }
+  });
+
+  printBlock("Last login: " + new Date().toDateString() + "\nWelcome — type 'help' or tap a command below to get started.");
+  input.focus();
+</script>
+</body>
+</html>
