@@ -428,12 +428,16 @@ tcp    me         whatsapp     FILTERED (by request)`,
   function D(){ return lang === 'id' ? dataID : dataEN; }
 
   function handleResume(){
+    const cvUrl = 'https://drive.google.com/file/d/1OTRYIbIfJOi860ptvR7UXMSUnYklKnVl/view?usp=drive_link';
     const msg = lang === 'id' ? 'Mengambil resume...' : 'Fetching resume...';
-    const notAvail = lang === 'id' ? 'CV belum tersedia. Cek lagi nanti!' : 'CV not available yet. Check back soon!';
+    const label = lang === 'id' ? 'Membuka CV di tab baru...' : 'Opening CV in new tab...';
     printLine('<span class="muted">' + msg + '</span>');
     scrollToBottom();
     setTimeout(function(){
-      printBlock(notAvail);
+      const pre = document.createElement('pre');
+      pre.innerHTML = label + '\n-> <a href="' + cvUrl + '" class="link" target="_blank" rel="noopener">' + cvUrl + '</a>';
+      output.appendChild(pre);
+      window.open(cvUrl, '_blank', 'noopener');
       scrollToBottom();
     }, 500);
   }
