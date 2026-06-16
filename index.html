@@ -9,6 +9,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://portfolio.anggatok.my.id" />
 <title>Angga — Terminal Portfolio</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍎</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -234,6 +235,14 @@ tcp    me         whatsapp     FILTERED (by request)`,
 
  [side path: further-education via Universitas Brawijaya / Universitas Terbuka]`,
 
+    ls: `~/portfolio
+
+  whoami.txt       skills.txt       experience.md
+  projects/        contact.txt      resume.pdf
+  netstat          traceroute       .bashrc`,
+
+    date: '',
+
     help: `Available commands:
 
   whoami       short intro
@@ -242,6 +251,8 @@ tcp    me         whatsapp     FILTERED (by request)`,
   projects     things I've built
   contact      how to reach me
   resume       download CV
+  ls           list files
+  date         current date & time
   netstat      ?
   traceroute   ?
   clear        clear the terminal
@@ -285,6 +296,11 @@ tcp    me         whatsapp     FILTERED (by request)`,
       handleContact();
       return;
     }
+    if(cmd === 'date'){
+      printBlock(new Date().toString());
+      scrollToBottom();
+      return;
+    }
     if(data[cmd]){
       printBlock(data[cmd]);
     } else {
@@ -323,7 +339,7 @@ tcp    me         whatsapp     FILTERED (by request)`,
     }
   });
 
-  const chipCommands = ['whoami','skills','experience','projects','contact','resume','help'];
+  const chipCommands = ['whoami','skills','experience','projects','contact','resume','ls','date','help'];
   const chipsContainer = document.getElementById('chips');
   chipCommands.forEach(function(c){
     const btn = document.createElement('button');
