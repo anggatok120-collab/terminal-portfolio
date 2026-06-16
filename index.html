@@ -446,6 +446,33 @@ tcp    me         whatsapp     FILTERED (by request)`,
     }, 500);
   }
 
+  function handleProjects(){
+    const pre = document.createElement('pre');
+    if(lang === 'id'){
+      pre.innerHTML =
+        '01. Porto Next — Website Portofolio\n' +
+        '    Website portofolio pribadi berbasis Next.js.\n' +
+        '    <a href="https://anggatok.my.id" class="link" target="_blank" rel="noopener">anggatok.my.id</a>\n' +
+        '    <a href="https://github.com/anggatok120-collab/porto-next" class="link" target="_blank" rel="noopener">github.com/anggatok120-collab/porto-next</a>\n\n' +
+        '02. Terminal Portfolio — ini\n' +
+        '    Portofolio interaktif berbasis terminal, vanilla HTML/CSS/JS.\n' +
+        '    <a href="https://portfolio.anggatok.my.id" class="link" target="_blank" rel="noopener">portfolio.anggatok.my.id</a>\n' +
+        '    <a href="https://github.com/anggatok120-collab/terminal-portfolio" class="link" target="_blank" rel="noopener">github.com/anggatok120-collab/terminal-portfolio</a>';
+    } else {
+      pre.innerHTML =
+        '01. Porto Next — Portfolio Website\n' +
+        '    Personal portfolio website built with Next.js.\n' +
+        '    <a href="https://anggatok.my.id" class="link" target="_blank" rel="noopener">anggatok.my.id</a>\n' +
+        '    <a href="https://github.com/anggatok120-collab/porto-next" class="link" target="_blank" rel="noopener">github.com/anggatok120-collab/porto-next</a>\n\n' +
+        '02. Terminal Portfolio — this one\n' +
+        '    Interactive terminal-style portfolio, vanilla HTML/CSS/JS.\n' +
+        '    <a href="https://portfolio.anggatok.my.id" class="link" target="_blank" rel="noopener">portfolio.anggatok.my.id</a>\n' +
+        '    <a href="https://github.com/anggatok120-collab/terminal-portfolio" class="link" target="_blank" rel="noopener">github.com/anggatok120-collab/terminal-portfolio</a>';
+    }
+    output.appendChild(pre);
+    scrollToBottom();
+  }
+
   function handleContact(){
     const loc = lang === 'id' ? 'Lokasi   ' : 'Location ';
     const locVal = lang === 'id' ? 'Malang, Jawa Timur, Indonesia' : 'Malang, East Java, Indonesia';
@@ -471,6 +498,7 @@ tcp    me         whatsapp     FILTERED (by request)`,
     }
     if(cmd === 'resume'){ handleResume(); return; }
     if(cmd === 'contact'){ handleContact(); return; }
+    if(cmd === 'projects'){ handleProjects(); return; }
     if(cmd === 'date'){
       printBlock(new Date().toString());
       scrollToBottom();
