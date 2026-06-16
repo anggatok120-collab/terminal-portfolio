@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Angga — NOC Staff at Mynet/Evonix. Network monitoring, incident response, and infrastructure automation. Based in Malang, Indonesia." />
+<meta name="description" content="Angga — Network Engineer & IT Support. Monitoring jaringan, troubleshooting, MikroTik, Linux server. Malang, Indonesia." />
 <meta property="og:title" content="Angga — Terminal Portfolio" />
-<meta property="og:description" content="NOC Staff specializing in Zabbix, Grafana, MikroTik, and network automation. Available from July 2026." />
+<meta property="og:description" content="Network Engineer & IT Support, 2.5+ tahun pengalaman di NOC, Customer Support & Helpdesk." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://portfolio.anggatok.my.id" />
 <title>Angga — Terminal Portfolio</title>
@@ -57,6 +57,18 @@
   .dot.yellow{background:#ffbd2e;}
   .dot.green{background:#27c93f;}
   .titlebar .title{margin-left:6px;}
+  .lang-toggle{margin-left:auto;display:flex;gap:4px;}
+  .lang-btn{
+    background:transparent;color:var(--muted);
+    border:1px solid var(--border);border-radius:4px;
+    padding:2px 7px;font-family:var(--font);font-size:11px;
+    cursor:pointer;transition:all .15s ease;
+  }
+  .lang-btn.active{
+    background:var(--accent-soft);color:var(--accent);
+    border-color:var(--accent-border);
+  }
+  .lang-btn:hover:not(.active){color:var(--text);border-color:var(--muted);}
   .output{flex:1;overflow-y:auto;padding:16px 18px;font-size:13.5px;line-height:1.6;}
   .output::-webkit-scrollbar{width:8px;}
   .output::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
@@ -94,7 +106,7 @@
   .link{color:var(--accent);text-decoration:none;}
   .link:hover{text-decoration:underline;}
   @media (prefers-reduced-motion: reduce){
-    .chip{transition:none;}
+    .chip,.lang-btn{transition:none;}
   }
   #send-btn{
     display:none;
@@ -118,6 +130,10 @@
     <div class="titlebar">
       <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
       <span class="title">guest@angga-portfolio: ~</span>
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-id" type="button">ID</button>
+        <button class="lang-btn" id="btn-en" type="button">EN</button>
+      </div>
     </div>
     <div class="output" id="output"></div>
     <div class="input-line">
@@ -129,12 +145,14 @@
   <div class="chips" id="chips"></div>
 </div>
 
-<noscript>This terminal portfolio needs JavaScript enabled to run.</noscript>
+<noscript>Portfolio ini membutuhkan JavaScript. / This portfolio requires JavaScript.</noscript>
 
 <script>
   const output = document.getElementById('output');
-  const input = document.getElementById('cmd-input');
+  const input  = document.getElementById('cmd-input');
   const terminal = document.getElementById('terminal');
+
+  let lang = 'id';
 
   function escapeHtml(str){
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -159,7 +177,7 @@
     output.scrollTop = output.scrollHeight;
   }
 
-  const data = {
+  const dataID = {
     whoami: `ANGGA
 Network Engineer | IT Support | Helpdesk
 Malang, Jawa Timur, Indonesia
@@ -169,14 +187,9 @@ NOC, Customer Support, dan Helpdesk. Kompeten dalam monitoring
 jaringan, troubleshooting, konfigurasi MikroTik, routing & switching,
 administrasi server Linux, serta pengelolaan VLAN dan firewall.
 
-Network Engineer & IT Support with 2.5+ years of experience in NOC,
-Customer Support & Helpdesk. Skilled in network monitoring,
-troubleshooting, MikroTik, routing & switching, Linux server admin,
-VLAN & firewall management.
+Ketik 'help' untuk melihat perintah tersedia.`,
 
-Ketik 'help' untuk perintah. / Type 'help' for commands.`,
-
-    skills: `TEKNIS / TECHNICAL
+    skills: `TEKNIS
   Network Monitoring · Network Troubleshooting · Network Analysis
   Routing & Switching · VLAN Configuration · Firewall Configuration
   IP Address Management · Fiber Optic Basic
@@ -184,7 +197,131 @@ Ketik 'help' untuk perintah. / Type 'help' for commands.`,
 TOOLS
   Zabbix · Grafana · MRTG · MikroTik · Winbox · SSH
 
-SISTEM / SYSTEMS
+SISTEM
+  Linux Server · Server Administration
+  Remote Support · Helpdesk Support
+
+SOFT SKILLS
+  Komunikasi · Analytical Thinking · Problem Solving
+  Teamwork · Manajemen Waktu · Adaptabilitas
+  Willingness to Learn · Customer Service Orientation
+
+BAHASA
+  Bahasa Indonesia — Aktif
+  English — Menengah`,
+
+    experience: `NOC STAFF — PT. Inovasi Tjaraka Buana (MyNet), Bandung
+Jan 2025 – Jun 2026
+
+  > Monitoring performa jaringan 24/7 via Zabbix, Grafana & MRTG
+  > Analisis traffic, packet loss, down link & troubleshooting remote
+  > Konfigurasi VLAN, routing, firewall, backup & dokumentasi IP
+
+FREELANCE REMOTE NOC — PT 3D Tech, Batam
+Jul 2025 – Jun 2026
+
+  > Monitoring jaringan & identifikasi gangguan konektivitas remote
+  > Troubleshooting perangkat & koordinasi eskalasi teknis
+  > Dokumentasi monitoring, laporan gangguan & update status berkala
+
+FREELANCE REMOTE HELPDESK — Nusantara Global Exchange (NGX), Batam
+Jul 2025 – Jun 2026
+
+  > Dukungan teknis via remote support, ticketing & komunikasi online
+  > Troubleshooting perangkat, koneksi internet & permasalahan user
+  > Pencatatan tiket & dokumentasi kendala teknis
+
+CUSTOMER SUPPORT — PT. Inovasi Tjaraka Buana (MyNet), Bandung
+Jan 2024 – Des 2024
+
+  > Penanganan keluhan pelanggan via telepon, WhatsApp & ticketing
+  > Informasi layanan, paket internet, billing & solusi teknis
+  > Identifikasi masalah & panduan troubleshooting modem/ONU
+
+Status: Tersedia mulai Juli 2026`,
+
+    education: `SMK PGRI 3 Malang
+Teknik Komputer dan Jaringan (TKJ)
+2022 – 2025
+
+  Mata Pelajaran Relevan:
+  > Konfigurasi MikroTik
+  > Routing & Switching
+  > Linux Server Administration
+  > Fiber Optik Dasar
+  > Administrasi Jaringan Komputer
+
+  Aktivitas:
+  > Proyek praktikum jaringan komputer & administrasi server`,
+
+    projects: `01. Porto Next — Website Portofolio
+    Website portofolio pribadi berbasis Next.js.
+    github.com/anggatok120-collab/porto-next
+
+02. Terminal Portfolio — ini
+    Portofolio interaktif berbasis terminal, vanilla HTML/CSS/JS.
+    github.com/anggatok120-collab/terminal-portfolio`,
+
+    netstat: `Proto  Lokal      Tujuan       Status
+tcp    saya       email        MENDENGARKAN
+tcp    saya       linkedin     MENDENGARKAN
+tcp    saya       github       MENDENGARKAN
+tcp    saya       whatsapp     DIBLOKIR (atas permintaan)`,
+
+    traceroute: `traceroute ke network-engineer (tujuan karir), 30 hops maks
+
+ 1  smk-pgri-3-malang         TKJ, lulus 2025
+ 2  customer-support.mynet    Jan 2024 – Des 2024
+ 3  noc-staff.mynet           Jan 2025 – Jun 2026
+ 4  freelance-noc.3dtech      Jul 2025 – Jun 2026 (bersamaan)
+ 4  freelance-helpdesk.ngx    Jul 2025 – Jun 2026 (bersamaan)
+ 5  * * *                     request timeout (dalam perjalanan)
+ 6  network-engineer          tujuan akhir`,
+
+    ls: `~/portofolio
+
+  whoami.txt       keahlian.txt     pengalaman.md
+  pendidikan.md    proyek/          kontak.txt
+  resume.pdf       netstat          traceroute       .bashrc`,
+
+    help: `Perintah tersedia:
+
+  whoami       profil singkat
+  skills       keahlian teknis
+  experience   pengalaman kerja
+  education    pendidikan
+  projects     proyek yang dibuat
+  contact      cara menghubungi
+  resume       unduh CV
+  ls           daftar file
+  date         tanggal & waktu
+  netstat      ?
+  traceroute   ?
+  clear        bersihkan terminal
+  help         menu ini`
+  };
+
+  const dataEN = {
+    whoami: `ANGGA
+Network Engineer | IT Support | Helpdesk
+Malang, East Java, Indonesia
+
+Network Engineer & IT Support with 2.5+ years of experience in NOC,
+Customer Support & Helpdesk. Skilled in network monitoring,
+troubleshooting, MikroTik configuration, routing & switching,
+Linux server administration, VLAN & firewall management.
+
+Type 'help' to see available commands.`,
+
+    skills: `TECHNICAL
+  Network Monitoring · Network Troubleshooting · Network Analysis
+  Routing & Switching · VLAN Configuration · Firewall Configuration
+  IP Address Management · Fiber Optic Basic
+
+TOOLS
+  Zabbix · Grafana · MRTG · MikroTik · Winbox · SSH
+
+SYSTEMS
   Linux Server · Server Administration
   Remote Support · Helpdesk Support
 
@@ -193,62 +330,61 @@ SOFT SKILLS
   Teamwork · Time Management · Adaptability
   Willingness to Learn · Customer Service Orientation
 
-BAHASA / LANGUAGES
-  Bahasa Indonesia — Aktif / Active
-  English — Menengah / Intermediate`,
+LANGUAGES
+  Indonesian — Active
+  English — Intermediate`,
 
     experience: `NOC STAFF — PT. Inovasi Tjaraka Buana (MyNet), Bandung
 Jan 2025 – Jun 2026
 
-  > Monitoring performa jaringan 24/7 via Zabbix, Grafana & MRTG
-    24/7 network performance monitoring using Zabbix, Grafana & MRTG
-  > Analisis traffic, packet loss, down link & troubleshooting remote
-    Traffic analysis, packet loss, downlink & remote troubleshooting
-  > Konfigurasi VLAN, routing, firewall, backup & dokumentasi IP
-    VLAN, routing, firewall config, backup & IP documentation
+  > 24/7 network performance monitoring using Zabbix, Grafana & MRTG
+  > Traffic analysis, packet loss, downlink & remote troubleshooting
+  > VLAN, routing, firewall config, backup & IP documentation
 
 FREELANCE REMOTE NOC — PT 3D Tech, Batam
 Jul 2025 – Jun 2026
 
-  > Monitoring jaringan & identifikasi gangguan konektivitas remote
-    Network monitoring & remote connectivity issue identification
-  > Troubleshooting perangkat & koordinasi eskalasi teknis
-    Device troubleshooting & technical escalation coordination
-  > Dokumentasi monitoring, laporan gangguan & update status berkala
-    Monitoring docs, incident reports & periodic status updates
+  > Network monitoring & remote connectivity issue identification
+  > Device troubleshooting & technical escalation coordination
+  > Monitoring docs, incident reports & periodic status updates
 
 FREELANCE REMOTE HELPDESK — Nusantara Global Exchange (NGX), Batam
 Jul 2025 – Jun 2026
 
-  > Dukungan teknis via remote support, ticketing & komunikasi online
-    Technical support via remote access, ticketing & online comms
-  > Troubleshooting perangkat, koneksi internet & permasalahan user
-    Device, internet & user issue troubleshooting
-  > Pencatatan tiket & dokumentasi kendala teknis
-    Ticket logging & technical issue documentation
+  > Technical support via remote access, ticketing & online comms
+  > Device, internet & user issue troubleshooting
+  > Ticket logging & technical issue documentation
 
 CUSTOMER SUPPORT — PT. Inovasi Tjaraka Buana (MyNet), Bandung
-Jan 2024 – Des 2024
+Jan 2024 – Dec 2024
 
-  > Penanganan keluhan pelanggan via telepon, WhatsApp & ticketing
-    Customer complaint handling via phone, WhatsApp & ticketing
-  > Informasi layanan, paket internet, billing & solusi teknis
-    Service info, internet packages, billing & technical solutions
-  > Identifikasi masalah & panduan troubleshooting modem/ONU
-    Issue identification & modem/ONU troubleshooting guidance
+  > Customer complaint handling via phone, WhatsApp & ticketing
+  > Service info, internet packages, billing & technical solutions
+  > Issue identification & modem/ONU troubleshooting guidance
 
-Status: Tersedia mulai Juli 2026 / Available from July 2026`,
+Status: Available from July 2026`,
+
+    education: `SMK PGRI 3 Malang
+Computer & Network Engineering (TKJ)
+2022 – 2025
+
+  Relevant Subjects:
+  > MikroTik Configuration
+  > Routing & Switching
+  > Linux Server Administration
+  > Fiber Optic Basics
+  > Computer Network Administration
+
+  Activities:
+  > Computer networking & server administration lab projects`,
 
     projects: `01. Porto Next — Portfolio Website
-    Website portofolio pribadi berbasis Next.js.
     Personal portfolio website built with Next.js.
     github.com/anggatok120-collab/porto-next
 
-02. Terminal Portfolio — ini / this one
-    Portofolio interaktif berbasis terminal, vanilla HTML/CSS/JS.
+02. Terminal Portfolio — this one
     Interactive terminal-style portfolio, vanilla HTML/CSS/JS.
     github.com/anggatok120-collab/terminal-portfolio`,
-
 
     netstat: `Proto  Local      Foreign      State
 tcp    me         email        LISTENING
@@ -258,8 +394,8 @@ tcp    me         whatsapp     FILTERED (by request)`,
 
     traceroute: `traceroute to network-engineer (career-goal), 30 hops max
 
- 1  smk-pgri-3-malang         TKJ, lulus / graduated 2025
- 2  customer-support.mynet    Jan 2024 – Des 2024
+ 1  smk-pgri-3-malang         Computer & Network Eng., graduated 2025
+ 2  customer-support.mynet    Jan 2024 – Dec 2024
  3  noc-staff.mynet           Jan 2025 – Jun 2026
  4  freelance-noc.3dtech      Jul 2025 – Jun 2026 (concurrent)
  4  freelance-helpdesk.ngx    Jul 2025 – Jun 2026 (concurrent)
@@ -272,51 +408,39 @@ tcp    me         whatsapp     FILTERED (by request)`,
   education.md     projects/        contact.txt
   resume.pdf       netstat          traceroute       .bashrc`,
 
-    date: '',
+    help: `Available commands:
 
-    education: `SMK PGRI 3 Malang
-Teknik Komputer dan Jaringan (TKJ)
-Computer & Network Engineering
-2022 – 2025
-
-  Mata Pelajaran Relevan / Relevant Subjects:
-  > Konfigurasi MikroTik / MikroTik Configuration
-  > Routing & Switching
-  > Linux Server Administration
-  > Fiber Optik Dasar / Fiber Optic Basics
-  > Administrasi Jaringan Komputer / Network Administration
-
-  Aktivitas / Activities:
-  > Proyek praktikum jaringan komputer & administrasi server
-    Computer networking & server administration lab projects`,
-
-    help: `Perintah tersedia / Available commands:
-
-  whoami       profil singkat / short intro
-  skills       keahlian / technical skills
-  experience   pengalaman kerja / work history
-  education    pendidikan / education
-  projects     proyek / things I've built
-  contact      kontak / how to reach me
-  resume       unduh CV / download CV
-  ls           daftar file / list files
-  date         tanggal & waktu / current date & time
+  whoami       short intro
+  skills       technical skills
+  experience   work history
+  education    education
+  projects     things I've built
+  contact      how to reach me
+  resume       download CV
+  ls           list files
+  date         current date & time
   netstat      ?
   traceroute   ?
-  clear        bersihkan terminal / clear terminal
-  help         menu ini / this menu`
+  clear        clear terminal
+  help         this menu`
   };
 
+  function D(){ return lang === 'id' ? dataID : dataEN; }
+
   function handleResume(){
-    printLine('<span class="muted">Fetching resume...</span>');
+    const msg = lang === 'id' ? 'Mengambil resume...' : 'Fetching resume...';
+    const notAvail = lang === 'id' ? 'CV belum tersedia. Cek lagi nanti!' : 'CV not available yet. Check back soon!';
+    printLine('<span class="muted">' + msg + '</span>');
     scrollToBottom();
     setTimeout(function(){
-      printBlock("CV not available yet. Check back soon!");
+      printBlock(notAvail);
       scrollToBottom();
     }, 500);
   }
 
   function handleContact(){
+    const loc = lang === 'id' ? 'Lokasi   ' : 'Location ';
+    const locVal = lang === 'id' ? 'Malang, Jawa Timur, Indonesia' : 'Malang, East Java, Indonesia';
     const pre = document.createElement('pre');
     pre.innerHTML =
       'Email     <a href="mailto:anggatok120@gmail.com" class="link" target="_blank" rel="noopener">anggatok120@gmail.com</a>\n' +
@@ -324,7 +448,7 @@ Computer & Network Engineering
       'GitHub    <a href="https://github.com/anggatok120-collab" class="link" target="_blank" rel="noopener">github.com/anggatok120-collab</a>\n' +
       'Website   <a href="https://portfolio.anggatok.my.id" class="link" target="_blank" rel="noopener">portfolio.anggatok.my.id</a>\n' +
       'Website   <a href="https://anggatok.web.id" class="link" target="_blank" rel="noopener">anggatok.web.id</a>\n' +
-      'Location  Malang, East Java, Indonesia';
+      loc + ' ' + locVal;
     output.appendChild(pre);
     scrollToBottom();
   }
@@ -337,57 +461,65 @@ Computer & Network Engineering
       output.innerHTML = '';
       return;
     }
-    if(cmd === 'resume'){
-      handleResume();
-      return;
-    }
-    if(cmd === 'contact'){
-      handleContact();
-      return;
-    }
+    if(cmd === 'resume'){ handleResume(); return; }
+    if(cmd === 'contact'){ handleContact(); return; }
     if(cmd === 'date'){
       printBlock(new Date().toString());
       scrollToBottom();
       return;
     }
-    if(data[cmd]){
-      printBlock(data[cmd]);
+    if(D()[cmd]){
+      printBlock(D()[cmd]);
     } else {
-      printBlock("command not found: " + cmd + "\nType 'help' to see available commands.");
+      const msg = lang === 'id'
+        ? 'perintah tidak ditemukan: ' + cmd + '\nKetik \'help\' untuk melihat perintah tersedia.'
+        : 'command not found: ' + cmd + '\nType \'help\' to see available commands.';
+      printBlock(msg);
     }
     scrollToBottom();
   }
 
+  // Language toggle
+  const btnID = document.getElementById('btn-id');
+  const btnEN = document.getElementById('btn-en');
+
+  function setLang(l){
+    lang = l;
+    document.documentElement.lang = l;
+    btnID.classList.toggle('active', l === 'id');
+    btnEN.classList.toggle('active', l === 'en');
+    const msg = l === 'id'
+      ? '-- Bahasa diubah ke Indonesia --'
+      : '-- Language switched to English --';
+    printLine('<span class="muted">' + msg + '</span>');
+    scrollToBottom();
+    input.focus();
+  }
+
+  btnID.addEventListener('click', function(){ if(lang !== 'id') setLang('id'); });
+  btnEN.addEventListener('click', function(){ if(lang !== 'en') setLang('en'); });
+
+  // History
   let history = [];
   let historyIndex = -1;
 
   input.addEventListener('keydown', function(e){
     if(e.key === 'Enter'){
       const val = input.value;
-      if(val.trim()){
-        history.push(val);
-        historyIndex = history.length;
-      }
+      if(val.trim()){ history.push(val); historyIndex = history.length; }
       runCommand(val);
       input.value = '';
     } else if(e.key === 'ArrowUp'){
       e.preventDefault();
-      if(historyIndex > 0){
-        historyIndex--;
-        input.value = history[historyIndex];
-      }
+      if(historyIndex > 0){ historyIndex--; input.value = history[historyIndex]; }
     } else if(e.key === 'ArrowDown'){
       e.preventDefault();
-      if(historyIndex < history.length - 1){
-        historyIndex++;
-        input.value = history[historyIndex];
-      } else {
-        historyIndex = history.length;
-        input.value = '';
-      }
+      if(historyIndex < history.length - 1){ historyIndex++; input.value = history[historyIndex]; }
+      else { historyIndex = history.length; input.value = ''; }
     }
   });
 
+  // Chips
   const chipCommands = ['whoami','skills','experience','education','projects','contact','resume','ls','date','help'];
   const chipsContainer = document.getElementById('chips');
   chipCommands.forEach(function(c){
@@ -395,31 +527,23 @@ Computer & Network Engineering
     btn.className = 'chip';
     btn.type = 'button';
     btn.textContent = c;
-    btn.addEventListener('click', function(){
-      runCommand(c);
-      input.focus();
-    });
+    btn.addEventListener('click', function(){ runCommand(c); input.focus(); });
     chipsContainer.appendChild(btn);
   });
 
   document.getElementById('send-btn').addEventListener('click', function(){
     const val = input.value;
-    if(val.trim()){
-      history.push(val);
-      historyIndex = history.length;
-    }
+    if(val.trim()){ history.push(val); historyIndex = history.length; }
     runCommand(val);
     input.value = '';
     input.focus();
   });
 
   terminal.addEventListener('click', function(e){
-    if(e.target.id !== 'cmd-input'){
-      input.focus();
-    }
+    if(e.target.id !== 'cmd-input') input.focus();
   });
 
-  printBlock("Last login: " + new Date().toDateString() + "\nWelcome — type 'help' or tap a command below to get started.");
+  printBlock("Login terakhir: " + new Date().toDateString() + "\nSelamat datang — ketik 'help' atau tap perintah di bawah.\nWelcome — type 'help' or tap a command below.");
   input.focus();
 </script>
 </body>
