@@ -212,32 +212,6 @@
   }
 
   const dataID = {
-    whoami: `ANGGA
-Network Engineer | IT Support | Helpdesk
-Malang, Jawa Timur, Indonesia
-
-Network Engineer & IT Support, 2,5+ tahun
-pengalaman di NOC, Customer Support &
-Helpdesk. Kompeten: monitoring jaringan,
-troubleshooting, MikroTik, routing &
-switching, Linux server, VLAN & firewall.
-
-Ketik 'help' untuk melihat perintah.`,
-
-    education: `SMK PGRI 3 Malang
-Teknik Komputer dan Jaringan (TKJ)
-2022 – 2025
-
-  Mata Pelajaran Relevan:
-  > Konfigurasi MikroTik
-  > Routing & Switching
-  > Linux Server Administration
-  > Fiber Optik Dasar
-  > Administrasi Jaringan Komputer
-
-  Aktivitas:
-  > Proyek praktikum jaringan komputer & administrasi server`,
-
     projects: `01. Porto Next — Website Portofolio
     Website portofolio pribadi berbasis Next.js.
     anggatok.my.id
@@ -288,32 +262,6 @@ tcp    saya       whatsapp     DIBLOKIR (atas permintaan)`,
   };
 
   const dataEN = {
-    whoami: `ANGGA
-Network Engineer | IT Support | Helpdesk
-Malang, East Java, Indonesia
-
-Network Engineer & IT Support, 2.5+ years
-in NOC, Customer Support & Helpdesk.
-Skilled in network monitoring,
-troubleshooting, MikroTik, routing &
-switching, Linux server, VLAN & firewall.
-
-Type 'help' to see available commands.`,
-
-    education: `SMK PGRI 3 Malang
-Computer & Network Engineering (TKJ)
-2022 – 2025
-
-  Relevant Subjects:
-  > MikroTik Configuration
-  > Routing & Switching
-  > Linux Server Administration
-  > Fiber Optic Basics
-  > Computer Network Administration
-
-  Activities:
-  > Computer networking & server administration lab projects`,
-
     projects: `01. Porto Next — Portfolio Website
     Personal portfolio website built with Next.js.
     anggatok.my.id
@@ -372,6 +320,91 @@ tcp    me         whatsapp     FILTERED (by request)`,
     const pre = document.createElement('pre');
     pre.innerHTML = label + '\n-> <a href="' + cvUrl + '" class="link" target="_blank" rel="noopener">' + cvUrl + '</a>';
     output.appendChild(pre);
+    scrollToBottom();
+  }
+
+  function handleWhoami(){
+    const isID = lang === 'id';
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'margin:4px 0 16px;font-family:var(--font);font-size:inherit;line-height:1.6;';
+
+    const name = document.createElement('div');
+    name.style.cssText = 'color:var(--accent);font-weight:700;font-size:1.1em;margin-bottom:1px;';
+    name.textContent = 'ANGGA';
+
+    const role = document.createElement('div');
+    role.textContent = 'Network Engineer | IT Support | Helpdesk';
+
+    const loc = document.createElement('div');
+    loc.style.color = 'var(--muted)';
+    loc.textContent = isID ? 'Malang, Jawa Timur, Indonesia' : 'Malang, East Java, Indonesia';
+
+    const sp1 = document.createElement('div');
+    sp1.style.height = '0.7em';
+
+    const desc = document.createElement('div');
+    desc.textContent = isID
+      ? 'Network Engineer & IT Support, 2,5+ tahun pengalaman di NOC, Customer Support & Helpdesk. Kompeten: monitoring jaringan, troubleshooting, MikroTik, routing & switching, Linux server, VLAN & firewall.'
+      : 'Network Engineer & IT Support, 2.5+ years in NOC, Customer Support & Helpdesk. Skilled in network monitoring, troubleshooting, MikroTik, routing & switching, Linux server, VLAN & firewall.';
+
+    const sp2 = document.createElement('div');
+    sp2.style.height = '0.7em';
+
+    const hint = document.createElement('div');
+    hint.style.color = 'var(--muted)';
+    hint.textContent = isID ? "Ketik 'help' untuk melihat perintah." : "Type 'help' to see available commands.";
+
+    [name, role, loc, sp1, desc, sp2, hint].forEach(function(el){ wrap.appendChild(el); });
+    output.appendChild(wrap);
+    scrollToBottom();
+  }
+
+  function handleEducation(){
+    const isID = lang === 'id';
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'margin:4px 0 16px;font-family:var(--font);font-size:inherit;line-height:1.6;';
+
+    const school = document.createElement('div');
+    school.textContent = 'SMK PGRI 3 Malang';
+
+    const major = document.createElement('div');
+    major.textContent = isID ? 'Teknik Komputer dan Jaringan (TKJ)' : 'Computer & Network Engineering (TKJ)';
+
+    const period = document.createElement('div');
+    period.style.color = 'var(--muted)';
+    period.textContent = '2022 – 2025';
+
+    const sp1 = document.createElement('div');
+    sp1.style.height = '0.7em';
+
+    const subjLabel = document.createElement('div');
+    subjLabel.style.cssText = 'color:var(--accent);margin-bottom:2px;';
+    subjLabel.textContent = isID ? 'Mata Pelajaran Relevan' : 'Relevant Subjects';
+
+    const subjItems = isID
+      ? ['Konfigurasi MikroTik','Routing & Switching','Linux Server Administration','Fiber Optik Dasar','Administrasi Jaringan Komputer']
+      : ['MikroTik Configuration','Routing & Switching','Linux Server Administration','Fiber Optic Basics','Computer Network Administration'];
+    const subjList = document.createElement('ul');
+    subjList.className = 'exp-list';
+    subjItems.forEach(function(s){ const li = document.createElement('li'); li.textContent = s; subjList.appendChild(li); });
+
+    const sp2 = document.createElement('div');
+    sp2.style.height = '0.7em';
+
+    const actLabel = document.createElement('div');
+    actLabel.style.cssText = 'color:var(--accent);margin-bottom:2px;';
+    actLabel.textContent = isID ? 'Aktivitas' : 'Activities';
+
+    const actList = document.createElement('ul');
+    actList.className = 'exp-list';
+    const actLi = document.createElement('li');
+    actLi.textContent = isID
+      ? 'Proyek praktikum jaringan komputer & administrasi server'
+      : 'Computer networking & server administration lab projects';
+    actList.appendChild(actLi);
+
+    [school, major, period, sp1, subjLabel, subjList, sp2, actLabel, actList].forEach(function(el){ wrap.appendChild(el); });
+    output.appendChild(wrap);
     scrollToBottom();
   }
 
@@ -520,6 +553,8 @@ tcp    me         whatsapp     FILTERED (by request)`,
     if(cmd === 'resume'){ handleResume(); return; }
     if(cmd === 'contact'){ handleContact(); return; }
     if(cmd === 'projects'){ handleProjects(); return; }
+    if(cmd === 'whoami'){ handleWhoami(); return; }
+    if(cmd === 'education'){ handleEducation(); return; }
     if(cmd === 'experience'){ handleExperience(); return; }
     if(cmd === 'skills'){ handleSkills(); return; }
     if(cmd === 'date'){
