@@ -8,8 +8,8 @@
 <meta property="og:description" content="Network Engineer & IT Support, 2.5+ tahun pengalaman di NOC, Customer Support & Helpdesk." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://portfolio.anggatok.my.id" />
-<title>Angga — Terminal Portfolio</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22white%22>%EF%A3%BF</text></svg>">
+<title>&gt;_ Angga</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%2310141b'/><text y='68' x='10' font-size='54' font-family='monospace' fill='%235eead4'>%3E_</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -178,9 +178,26 @@
     output.appendChild(div);
   }
   function printBlock(text){
-    const pre = document.createElement('pre');
-    pre.textContent = text;
-    output.appendChild(pre);
+    const container = document.createElement('div');
+    container.style.cssText = 'margin:4px 0 16px;font-family:var(--font);font-size:inherit;line-height:1.6;white-space:pre-wrap;';
+    text.split('\n').forEach(function(line){
+      const d = document.createElement('div');
+      const bullet = line.match(/^(\s*)(>\s)(.*)/);
+      const indent = !bullet && line.match(/^(\s{2,})(.*)/);
+      if(bullet){
+        const pad = (bullet[1].length * 0.55) + 1.6;
+        d.style.cssText = 'padding-left:' + pad + 'em;';
+        d.innerHTML = '<span style="display:inline-block;width:1.6em;margin-left:-1.6em;color:var(--muted);">&gt; </span>' + escapeHtml(bullet[3]);
+      } else if(indent){
+        const pad = indent[1].length * 0.55;
+        d.style.cssText = 'padding-left:' + pad + 'em;';
+        d.textContent = indent[2];
+      } else {
+        d.textContent = line;
+      }
+      container.appendChild(d);
+    });
+    output.appendChild(container);
   }
   function promptHtml(){
     return '<span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">angga</span><span class="p-colon">:</span><span class="p-path">~</span><span class="p-dollar">$</span>';
@@ -197,29 +214,40 @@
 Network Engineer | IT Support | Helpdesk
 Malang, Jawa Timur, Indonesia
 
-Network Engineer & IT Support dengan pengalaman 2,5+ tahun di bidang
-NOC, Customer Support, dan Helpdesk. Kompeten dalam monitoring
-jaringan, troubleshooting, konfigurasi MikroTik, routing & switching,
-administrasi server Linux, serta pengelolaan VLAN dan firewall.
+2,5+ tahun di NOC, Customer Support &
+Helpdesk. Kompeten dalam monitoring
+jaringan, troubleshooting, MikroTik,
+routing & switching, Linux server,
+VLAN & firewall.
 
-Ketik 'help' untuk melihat perintah tersedia.`,
+Ketik 'help' untuk melihat perintah.`,
 
     skills: `TEKNIS
-  Network Monitoring · Network Troubleshooting · Network Analysis
-  Routing & Switching · VLAN Configuration · Firewall Configuration
-  IP Address Management · Fiber Optic Basic
+  Network Monitoring
+  Network Troubleshooting
+  Network Analysis
+  Routing & Switching
+  VLAN Configuration
+  Firewall Configuration
+  IP Address Management
+  Fiber Optic Basic
 
 TOOLS
-  Zabbix · Grafana · MRTG · MikroTik · Winbox · SSH
+  Zabbix · Grafana · MRTG
+  MikroTik · Winbox · SSH
 
 SISTEM
-  Linux Server · Server Administration
-  Remote Support · Helpdesk Support
+  Linux Server
+  Server Administration
+  Remote Support
+  Helpdesk Support
 
 SOFT SKILLS
-  Komunikasi · Analytical Thinking · Problem Solving
-  Teamwork · Manajemen Waktu · Adaptabilitas
-  Willingness to Learn · Customer Service Orientation
+  Komunikasi · Problem Solving
+  Analytical Thinking · Teamwork
+  Manajemen Waktu · Adaptabilitas
+  Willingness to Learn
+  Customer Service Orientation
 
 BAHASA
   Bahasa Indonesia — Aktif
@@ -285,15 +313,15 @@ tcp    saya       linkedin     MENDENGARKAN
 tcp    saya       github       MENDENGARKAN
 tcp    saya       whatsapp     DIBLOKIR (atas permintaan)`,
 
-    traceroute: `traceroute ke network-engineer (tujuan karir), 30 hops maks
+    traceroute: `traceroute ke network-engineer, 30 hops
 
- 1  smk-pgri-3-malang         TKJ, lulus 2025
- 2  customer-support.mynet    Jan 2024 – Des 2024 (magang)
- 3  noc-staff.mynet           Jan 2025 – Jun 2026
- 4  freelance-noc.3dtech      Jul 2025 – Jun 2026 (bersamaan)
- 4  freelance-helpdesk.ngx    Jul 2025 – Jun 2026 (bersamaan)
- 5  * * *                     request timeout (dalam perjalanan)
- 6  network-engineer          tujuan akhir`,
+ 1  smk-pgri-3       TKJ, lulus 2025
+ 2  cs.mynet         Jan–Des 2024 (magang)
+ 3  noc.mynet        Jan 2025–Jun 2026
+ 4  noc.3dtech       Jul 2025–Jun 2026
+ 4  helpdesk.ngx     Jul 2025–Jun 2026
+ 5  * * *            in transit
+ 6  network-engineer target host`,
 
     ls: `~/portofolio
 
@@ -323,29 +351,40 @@ tcp    saya       whatsapp     DIBLOKIR (atas permintaan)`,
 Network Engineer | IT Support | Helpdesk
 Malang, East Java, Indonesia
 
-Network Engineer & IT Support with 2.5+ years of experience in NOC,
-Customer Support & Helpdesk. Skilled in network monitoring,
-troubleshooting, MikroTik configuration, routing & switching,
-Linux server administration, VLAN & firewall management.
+2.5+ years in NOC, Customer Support &
+Helpdesk. Skilled in network monitoring,
+troubleshooting, MikroTik configuration,
+routing & switching, Linux server,
+VLAN & firewall management.
 
 Type 'help' to see available commands.`,
 
     skills: `TECHNICAL
-  Network Monitoring · Network Troubleshooting · Network Analysis
-  Routing & Switching · VLAN Configuration · Firewall Configuration
-  IP Address Management · Fiber Optic Basic
+  Network Monitoring
+  Network Troubleshooting
+  Network Analysis
+  Routing & Switching
+  VLAN Configuration
+  Firewall Configuration
+  IP Address Management
+  Fiber Optic Basic
 
 TOOLS
-  Zabbix · Grafana · MRTG · MikroTik · Winbox · SSH
+  Zabbix · Grafana · MRTG
+  MikroTik · Winbox · SSH
 
 SYSTEMS
-  Linux Server · Server Administration
-  Remote Support · Helpdesk Support
+  Linux Server
+  Server Administration
+  Remote Support
+  Helpdesk Support
 
 SOFT SKILLS
-  Communication · Analytical Thinking · Problem Solving
-  Teamwork · Time Management · Adaptability
-  Willingness to Learn · Customer Service Orientation
+  Communication · Problem Solving
+  Analytical Thinking · Teamwork
+  Time Management · Adaptability
+  Willingness to Learn
+  Customer Service Orientation
 
 LANGUAGES
   Indonesian — Active
@@ -411,15 +450,15 @@ tcp    me         linkedin     LISTENING
 tcp    me         github       LISTENING
 tcp    me         whatsapp     FILTERED (by request)`,
 
-    traceroute: `traceroute to network-engineer (career-goal), 30 hops max
+    traceroute: `traceroute to network-engineer, 30 hops
 
- 1  smk-pgri-3-malang         Computer & Network Eng., graduated 2025
- 2  customer-support.mynet    Jan 2024 – Dec 2024 (internship)
- 3  noc-staff.mynet           Jan 2025 – Jun 2026
- 4  freelance-noc.3dtech      Jul 2025 – Jun 2026 (concurrent)
- 4  freelance-helpdesk.ngx    Jul 2025 – Jun 2026 (concurrent)
- 5  * * *                     request timed out (in transit)
- 6  network-engineer          target host`,
+ 1  smk-pgri-3       TKJ, graduated 2025
+ 2  cs.mynet         Jan–Dec 2024 (intern)
+ 3  noc.mynet        Jan 2025–Jun 2026
+ 4  noc.3dtech       Jul 2025–Jun 2026
+ 4  helpdesk.ngx     Jul 2025–Jun 2026
+ 5  * * *            in transit
+ 6  network-engineer target host`,
 
     ls: `~/portfolio
 
