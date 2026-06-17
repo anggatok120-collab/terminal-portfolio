@@ -90,8 +90,16 @@
   #cmd-input{
     flex:1;background:transparent;border:none;
     color:var(--text);font-family:var(--font);font-size:13.5px;
-    caret-color:var(--accent);
+    caret-color:transparent;
   }
+  #fake-cursor{
+    position:absolute;width:0.58em;height:1.15em;
+    background:var(--accent);opacity:0.9;
+    animation:tblink 1.1s step-end infinite;
+    pointer-events:none;display:none;
+    top:50%;transform:translateY(-50%);
+  }
+  @keyframes tblink{50%{opacity:0;}}
   #cmd-input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px;}
   .chips{display:flex;flex-wrap:wrap;gap:8px;}
   .chip{
@@ -651,6 +659,30 @@ tcp    me         whatsapp     FILTERED (by request)`,
   terminal.addEventListener('click', function(e){
     if(e.target.id !== 'cmd-input') input.focus();
   });
+
+  // Block cursor
+  (function(){
+    const cur = document.createElement('span');
+    cur.id = 'fake-cursor';
+    const inputLine = document.querySelector('.input-line');
+    inputLine.style.position = 'relative';
+    inputLine.appendChild(cur);
+    const cvs = document.createElement('canvas');
+    function textW(str){
+      const ctx = cvs.getContext('2d');
+      const s = getComputedStyle(input);
+      ctx.font = s.fontWeight + ' ' + s.fontSize + ' ' + s.fontFamily;
+      return ctx.measureText(str).width;
+    }
+    function moveCursor(){
+      cur.style.left = (input.offsetLeft + textW(input.value.substring(0, input.selectionStart))) + 'px';
+    }
+    input.addEventListener('input', moveCursor);
+    input.addEventListener('keydown', function(){ setTimeout(moveCursor, 0); });
+    input.addEventListener('click', moveCursor);
+    input.addEventListener('focus', function(){ moveCursor(); cur.style.display = 'block'; });
+    input.addEventListener('blur', function(){ cur.style.display = 'none'; });
+  })();
 
   const welcome = lang === 'id'
     ? "Login terakhir: " + new Date().toDateString() + "\nSelamat datang — ketik 'help' atau tap perintah di bawah."
