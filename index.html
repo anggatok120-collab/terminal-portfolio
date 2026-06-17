@@ -105,6 +105,14 @@
   .chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
   .link{color:var(--accent);text-decoration:none;}
   .link:hover{text-decoration:underline;}
+  .exp-wrap{margin:4px 0 16px;font-family:var(--font);font-size:inherit;}
+  .exp-section{margin-bottom:18px;}
+  .exp-role{color:var(--text);}
+  .exp-period{color:var(--muted);margin-bottom:6px;}
+  .exp-list{list-style:none;padding:0;margin:0;}
+  .exp-list li{padding-left:1.8em;text-indent:-1.8em;line-height:1.6;}
+  .exp-list li::before{content:'> ';color:var(--muted);}
+  .exp-status{color:var(--muted);margin-top:8px;}
   @media (prefers-reduced-motion: reduce){
     .chip,.lang-btn{transition:none;}
   }
@@ -453,6 +461,66 @@ tcp    me         whatsapp     FILTERED (by request)`,
     }, 500);
   }
 
+  function expSection(role, period, bullets){
+    return '<div class="exp-section"><div class="exp-role">' + role + '</div><div class="exp-period">' + period + '</div><ul class="exp-list">' +
+      bullets.map(function(b){ return '<li>' + b + '</li>'; }).join('') +
+      '</ul></div>';
+  }
+
+  function handleExperience(){
+    const div = document.createElement('div');
+    div.className = 'exp-wrap';
+    if(lang === 'id'){
+      div.innerHTML =
+        expSection('CUSTOMER SUPPORT (MAGANG) — PT. Inovasi Tjaraka Buana (MyNet), Bandung','Jan 2024 – Des 2024',[
+          'Penanganan keluhan pelanggan via telepon, WhatsApp & ticketing',
+          'Informasi layanan, paket internet, billing & solusi teknis',
+          'Identifikasi masalah & panduan troubleshooting modem/ONU'
+        ]) +
+        expSection('NOC STAFF — PT. Inovasi Tjaraka Buana (MyNet), Bandung','Jan 2025 – Jun 2026',[
+          'Monitoring performa jaringan 24/7 via Zabbix, Grafana & MRTG',
+          'Analisis traffic, packet loss, down link & troubleshooting remote',
+          'Konfigurasi VLAN, routing, firewall, backup & dokumentasi IP'
+        ]) +
+        expSection('FREELANCE REMOTE HELPDESK — Nusantara Global Exchange (NGX), Batam','Jul 2025 – Jun 2026',[
+          'Dukungan teknis via remote support, ticketing & komunikasi online',
+          'Troubleshooting perangkat, koneksi internet & permasalahan user',
+          'Pencatatan tiket & dokumentasi kendala teknis'
+        ]) +
+        expSection('FREELANCE REMOTE NOC — PT 3D Tech, Batam','Jul 2025 – Jun 2026',[
+          'Monitoring jaringan & identifikasi gangguan konektivitas remote',
+          'Troubleshooting perangkat & koordinasi eskalasi teknis',
+          'Dokumentasi monitoring, laporan gangguan & update status berkala'
+        ]) +
+        '<div class="exp-status">Status: Tersedia mulai Juli 2026</div>';
+    } else {
+      div.innerHTML =
+        expSection('CUSTOMER SUPPORT (INTERNSHIP) — PT. Inovasi Tjaraka Buana (MyNet), Bandung','Jan 2024 – Dec 2024',[
+          'Customer complaint handling via phone, WhatsApp & ticketing',
+          'Service info, internet packages, billing & technical solutions',
+          'Issue identification & modem/ONU troubleshooting guidance'
+        ]) +
+        expSection('NOC STAFF — PT. Inovasi Tjaraka Buana (MyNet), Bandung','Jan 2025 – Jun 2026',[
+          '24/7 network performance monitoring using Zabbix, Grafana & MRTG',
+          'Traffic analysis, packet loss, downlink & remote troubleshooting',
+          'VLAN, routing, firewall config, backup & IP documentation'
+        ]) +
+        expSection('FREELANCE REMOTE HELPDESK — Nusantara Global Exchange (NGX), Batam','Jul 2025 – Jun 2026',[
+          'Technical support via remote access, ticketing & online comms',
+          'Device, internet & user issue troubleshooting',
+          'Ticket logging & technical issue documentation'
+        ]) +
+        expSection('FREELANCE REMOTE NOC — PT 3D Tech, Batam','Jul 2025 – Jun 2026',[
+          'Network monitoring & remote connectivity issue identification',
+          'Device troubleshooting & technical escalation coordination',
+          'Monitoring docs, incident reports & periodic status updates'
+        ]) +
+        '<div class="exp-status">Status: Available from July 2026</div>';
+    }
+    output.appendChild(div);
+    scrollToBottom();
+  }
+
   function handleProjects(){
     const pre = document.createElement('pre');
     if(lang === 'id'){
@@ -506,6 +574,7 @@ tcp    me         whatsapp     FILTERED (by request)`,
     if(cmd === 'resume'){ handleResume(); return; }
     if(cmd === 'contact'){ handleContact(); return; }
     if(cmd === 'projects'){ handleProjects(); return; }
+    if(cmd === 'experience'){ handleExperience(); return; }
     if(cmd === 'date'){
       printBlock(new Date().toString());
       scrollToBottom();
