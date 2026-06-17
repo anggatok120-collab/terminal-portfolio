@@ -192,6 +192,8 @@
         const pad = indent[1].length * 0.55;
         d.style.cssText = 'padding-left:' + pad + 'em;';
         d.textContent = indent[2];
+      } else if(line === ''){
+        d.style.height = '0.7em';
       } else {
         d.textContent = line;
       }
