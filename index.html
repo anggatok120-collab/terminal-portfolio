@@ -488,6 +488,38 @@ tcp    me         whatsapp     FILTERED (by request)`,
     }, 500);
   }
 
+  function handleSkills(){
+    const isID = lang === 'id';
+    const sections = isID ? [
+      ['TEKNIS', ['Network Monitoring','Network Troubleshooting','Network Analysis','Routing & Switching','VLAN Configuration','Firewall Configuration','IP Address Management','Fiber Optic Basic']],
+      ['TOOLS', ['Zabbix · Grafana · MRTG','MikroTik · Winbox · SSH']],
+      ['SISTEM', ['Linux Server Administration','Remote Support & Helpdesk']],
+      ['SOFT SKILLS', ['Komunikasi · Teamwork','Analytical Thinking · Problem Solving','Manajemen Waktu · Adaptabilitas','Willingness to Learn']],
+      ['BAHASA', ['Bahasa Indonesia — Aktif','English — Menengah']]
+    ] : [
+      ['TECHNICAL', ['Network Monitoring','Network Troubleshooting','Network Analysis','Routing & Switching','VLAN Configuration','Firewall Configuration','IP Address Management','Fiber Optic Basic']],
+      ['TOOLS', ['Zabbix · Grafana · MRTG','MikroTik · Winbox · SSH']],
+      ['SYSTEMS', ['Linux Server Administration','Remote Support & Helpdesk']],
+      ['SOFT SKILLS', ['Communication · Teamwork','Analytical Thinking · Problem Solving','Time Management · Adaptability','Willingness to Learn']],
+      ['LANGUAGES', ['Indonesian — Active','English — Intermediate']]
+    ];
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'margin:4px 0 16px;font-family:var(--font);font-size:inherit;';
+    sections.forEach(function(s, i){
+      if(i > 0){ const sp = document.createElement('div'); sp.style.height = '10px'; wrap.appendChild(sp); }
+      const catEl = document.createElement('div');
+      catEl.style.cssText = 'color:var(--accent);margin-bottom:3px;';
+      catEl.textContent = s[0];
+      wrap.appendChild(catEl);
+      const ul = document.createElement('ul');
+      ul.className = 'exp-list';
+      s[1].forEach(function(item){ const li = document.createElement('li'); li.textContent = item; ul.appendChild(li); });
+      wrap.appendChild(ul);
+    });
+    output.appendChild(wrap);
+    scrollToBottom();
+  }
+
   function expSection(role, period, bullets){
     return '<div class="exp-section"><div class="exp-role">' + role + '</div><div class="exp-period">' + period + '</div><ul class="exp-list">' +
       bullets.map(function(b){ return '<li>' + b + '</li>'; }).join('') +
@@ -602,6 +634,7 @@ tcp    me         whatsapp     FILTERED (by request)`,
     if(cmd === 'contact'){ handleContact(); return; }
     if(cmd === 'projects'){ handleProjects(); return; }
     if(cmd === 'experience'){ handleExperience(); return; }
+    if(cmd === 'skills'){ handleSkills(); return; }
     if(cmd === 'date'){
       printBlock(new Date().toString());
       scrollToBottom();
