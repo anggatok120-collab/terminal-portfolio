@@ -73,7 +73,7 @@
   .output::-webkit-scrollbar{width:8px;}
   .output::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
   .output::-webkit-scrollbar-track{background:transparent;}
-  .output pre{margin:4px 0 16px;white-space:pre-wrap;word-break:break-word;font-family:var(--font);}
+  .output pre{margin:4px 0 16px;white-space:pre-wrap;overflow-wrap:break-word;font-family:var(--font);}
   .echo{color:var(--muted);margin-top:16px;}
   .echo:first-child{margin-top:0;}
   .muted{color:var(--muted);}
@@ -119,7 +119,7 @@
   @media (max-width:480px){
     body{padding:12px 10px 16px;}
     .terminal{height:min(58vh,500px);}
-    .output{font-size:13px;padding:12px 14px;}
+    .output{font-size:11.5px;padding:12px 14px;line-height:1.7;}
     #send-btn{display:inline-block;padding:4px 8px;font-size:11px;}
     .p-user,.p-at,.p-host,.p-colon{display:none;}
     .input-line{padding:9px 12px;gap:6px;}
@@ -489,7 +489,7 @@ tcp    me         whatsapp     FILTERED (by request)`,
       'LinkedIn  <a href="https://www.linkedin.com/in/angga-angga-1147b1369" class="link" target="_blank" rel="noopener">linkedin.com/in/angga-angga-1147b1369</a>\n' +
       'GitHub    <a href="https://github.com/anggatok120-collab" class="link" target="_blank" rel="noopener">github.com/anggatok120-collab</a>\n' +
       'Website   <a href="https://portfolio.anggatok.my.id" class="link" target="_blank" rel="noopener">portfolio.anggatok.my.id</a>\n' +
-      'Website   <a href="https://anggatok.web.id" class="link" target="_blank" rel="noopener">anggatok.web.id</a>\n' +
+      'Website   <a href="https://anggatok.my.id" class="link" target="_blank" rel="noopener">anggatok.my.id</a>\n' +
       loc + ' ' + locVal;
     output.appendChild(pre);
     scrollToBottom();
