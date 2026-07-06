@@ -69,6 +69,7 @@
     border-color:var(--accent-border);
   }
   .lang-btn:hover:not(.active){color:var(--text);border-color:var(--muted);}
+  .welcome{padding:16px 18px 0;font-size:13.5px;line-height:1.6;border-bottom:1px solid var(--border);}
   .output{flex:1;overflow-y:auto;padding:16px 18px;font-size:13.5px;line-height:1.6;}
   .output::-webkit-scrollbar{width:8px;}
   .output::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
@@ -136,6 +137,7 @@
     body{padding:12px 10px 16px;}
     .terminal{height:min(58vh,500px);}
     .output{font-size:11.5px;padding:12px 14px;line-height:1.7;}
+    .welcome{font-size:11.5px;padding:12px 14px 0;line-height:1.7;}
     #send-btn{display:inline-block;padding:4px 8px;font-size:11px;}
     .p-user,.p-at,.p-host,.p-colon{display:none;}
     .input-line{padding:9px 12px;gap:6px;}
@@ -158,6 +160,7 @@
         <button class="lang-btn" id="btn-en" type="button">EN</button>
       </div>
     </div>
+    <div class="welcome" id="welcome"></div>
     <div class="output" id="output"></div>
     <div class="input-line">
       <span class="prompt"><span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">angga</span><span class="p-colon">:</span><span class="p-path">~</span><span class="p-dollar">$</span></span>
@@ -185,7 +188,7 @@
     div.innerHTML = html;
     output.appendChild(div);
   }
-  function printBlock(text){
+  function renderBlock(target, text){
     const container = document.createElement('div');
     container.style.cssText = 'margin:4px 0 16px;font-family:var(--font);font-size:inherit;line-height:1.6;white-space:pre-wrap;';
     text.split('\n').forEach(function(line){
@@ -207,7 +210,10 @@
       }
       container.appendChild(d);
     });
-    output.appendChild(container);
+    target.appendChild(container);
+  }
+  function printBlock(text){
+    renderBlock(output, text);
   }
   function promptHtml(){
     return '<span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">angga</span><span class="p-colon">:</span><span class="p-path">~</span><span class="p-dollar">$</span>';
@@ -687,7 +693,7 @@ tcp    me         whatsapp     FILTERED (by request)`,
   const welcome = lang === 'id'
     ? "Login terakhir: " + new Date().toDateString() + "\nSelamat datang — ketik 'help' atau tap perintah di bawah."
     : "Last login: " + new Date().toDateString() + "\nWelcome — type 'help' or tap a command below.";
-  printBlock(welcome);
+  renderBlock(document.getElementById('welcome'), welcome);
   input.focus();
 </script>
 </body>
