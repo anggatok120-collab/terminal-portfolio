@@ -353,6 +353,11 @@ tcp    me         whatsapp     FILTERED (by request)`,
     loc.style.color = 'var(--muted)';
     loc.textContent = isID ? 'Malang, Jawa Timur, Indonesia' : 'Malang, East Java, Indonesia';
 
+    const photo = document.createElement('img');
+    photo.src = 'https://raw.githubusercontent.com/anggatok120-collab/porto-next/main/public/images/angga.jpg';
+    photo.style.cssText = 'width:100%;max-width:200px;height:auto;border:1px solid var(--border);border-radius:4px;margin-top:1em;margin-bottom:1em;display:block;';
+    photo.alt = 'Angga Profile Photo';
+
     const sp1 = document.createElement('div');
     sp1.style.height = '0.7em';
 
@@ -368,7 +373,7 @@ tcp    me         whatsapp     FILTERED (by request)`,
     hint.style.color = 'var(--muted)';
     hint.textContent = isID ? "Ketik 'help' untuk melihat perintah." : "Type 'help' to see available commands.";
 
-    [name, role, loc, sp1, desc, sp2, hint].forEach(function(el){ wrap.appendChild(el); });
+    [name, role, loc, photo, sp1, desc, sp2, hint].forEach(function(el){ wrap.appendChild(el); });
     output.appendChild(wrap);
     scrollToBottom();
   }
