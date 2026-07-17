@@ -343,37 +343,39 @@ tcp    me         whatsapp     FILTERED (by request)`,
     wrap.style.cssText = 'margin:4px 0 16px;font-family:var(--font);font-size:inherit;line-height:1.6;';
 
     const name = document.createElement('div');
-    name.style.cssText = 'color:var(--accent);font-weight:700;font-size:1.1em;margin-bottom:1px;';
+    name.style.cssText = 'color:var(--accent);font-weight:700;font-size:1.1em;margin-bottom:1em;';
     name.textContent = 'ANGGA';
 
+    const photoWrap = document.createElement('div');
+    photoWrap.style.cssText = 'width:100%;max-width:180px;margin:0 auto 1.2em;';
+    
+    const photo = document.createElement('img');
+    photo.src = 'https://raw.githubusercontent.com/anggatok120-collab/porto-next/main/public/images/foto_HD.png';
+    photo.style.cssText = 'width:100%;height:auto;border-radius:12px;display:block;box-shadow:0 8px 24px rgba(0,0,0,0.4);';
+    photo.alt = 'Angga Profile Photo';
+    photoWrap.appendChild(photo);
+
     const role = document.createElement('div');
-    role.textContent = 'Network Engineer | IT Support | Helpdesk';
+    role.textContent = 'Network Engineer';
+    role.style.cssText = 'text-align:center;margin-bottom:0.5em;';
 
     const loc = document.createElement('div');
-    loc.style.color = 'var(--muted)';
+    loc.style.cssText = 'color:var(--muted);text-align:center;margin-bottom:1em;';
     loc.textContent = isID ? 'Malang, Jawa Timur, Indonesia' : 'Malang, East Java, Indonesia';
-
-    const photo = document.createElement('img');
-    photo.src = 'https://raw.githubusercontent.com/anggatok120-collab/porto-next/main/public/images/angga.jpg';
-    photo.style.cssText = 'width:100%;max-width:200px;height:auto;border:1px solid var(--border);border-radius:4px;margin-top:1em;margin-bottom:1em;display:block;';
-    photo.alt = 'Angga Profile Photo';
-
-    const sp1 = document.createElement('div');
-    sp1.style.height = '0.7em';
 
     const desc = document.createElement('div');
     desc.textContent = isID
-      ? 'Network Engineer & IT Support, 2,5+ tahun pengalaman di NOC, Customer Support & Helpdesk. Kompeten: monitoring jaringan, troubleshooting, MikroTik, routing & switching, Linux server, VLAN & firewall.'
-      : 'Network Engineer & IT Support, 2.5+ years in NOC, Customer Support & Helpdesk. Skilled in network monitoring, troubleshooting, MikroTik, routing & switching, Linux server, VLAN & firewall.';
+      ? 'Network Engineer, 2,5+ tahun pengalaman di NOC, Customer Support & Helpdesk. Kompeten: monitoring jaringan, troubleshooting, MikroTik, routing & switching, Linux server, VLAN & firewall.'
+      : 'Network Engineer, 2.5+ years in NOC, Customer Support & Helpdesk. Skilled in network monitoring, troubleshooting, MikroTik, routing & switching, Linux server, VLAN & firewall.';
 
-    const sp2 = document.createElement('div');
-    sp2.style.height = '0.7em';
+    const sp = document.createElement('div');
+    sp.style.height = '0.7em';
 
     const hint = document.createElement('div');
     hint.style.color = 'var(--muted)';
     hint.textContent = isID ? "Ketik 'help' untuk melihat perintah." : "Type 'help' to see available commands.";
 
-    [name, role, loc, photo, sp1, desc, sp2, hint].forEach(function(el){ wrap.appendChild(el); });
+    [name, photoWrap, role, loc, desc, sp, hint].forEach(function(el){ wrap.appendChild(el); });
     output.appendChild(wrap);
     scrollToBottom();
   }
