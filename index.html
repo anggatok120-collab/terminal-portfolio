@@ -385,22 +385,39 @@ tcp    me         whatsapp     FILTERED (by request)`,
     const wrap = document.createElement('div');
     wrap.style.cssText = 'margin:4px 0 16px;font-family:var(--font);font-size:inherit;line-height:1.6;';
 
-    const school = document.createElement('div');
-    school.textContent = 'SMK PGRI 3 Malang';
+    // 1. Institut Teknologi dan Bisnis Asia Malang
+    const school1 = document.createElement('div');
+    school1.style.cssText = 'color:var(--accent);font-weight:700;';
+    school1.textContent = '01. Institut Teknologi dan Bisnis Asia Malang';
 
-    const major = document.createElement('div');
-    major.textContent = isID ? 'Teknik Komputer dan Jaringan (TKJ)' : 'Computer & Network Engineering (TKJ)';
+    const major1 = document.createElement('div');
+    major1.textContent = isID ? 'Pendidikan Tinggi / Perguruan Tinggi' : 'Higher Education / Undergraduate';
 
-    const period = document.createElement('div');
-    period.style.color = 'var(--muted)';
-    period.textContent = '2022 – 2025';
+    const period1 = document.createElement('div');
+    period1.style.color = 'var(--muted)';
+    period1.textContent = isID ? 'Sep 2026 – Sekarang (Mahasiswa Aktif)' : 'Sep 2026 – Present (Active Student)';
 
     const sp1 = document.createElement('div');
-    sp1.style.height = '0.7em';
+    sp1.style.height = '0.9em';
+
+    // 2. SMK PGRI 3 Malang
+    const school2 = document.createElement('div');
+    school2.style.cssText = 'color:var(--accent);font-weight:700;';
+    school2.textContent = '02. SMK PGRI 3 Malang';
+
+    const major2 = document.createElement('div');
+    major2.textContent = isID ? 'Teknik Komputer dan Jaringan (TKJ)' : 'Computer & Network Engineering (TKJ)';
+
+    const period2 = document.createElement('div');
+    period2.style.color = 'var(--muted)';
+    period2.textContent = '2022 – 2025';
+
+    const sp2 = document.createElement('div');
+    sp2.style.height = '0.7em';
 
     const subjLabel = document.createElement('div');
     subjLabel.style.cssText = 'color:var(--accent);margin-bottom:2px;';
-    subjLabel.textContent = isID ? 'Mata Pelajaran Relevan' : 'Relevant Subjects';
+    subjLabel.textContent = isID ? 'Mata Pelajaran Relevan (SMK)' : 'Relevant Subjects (SMK)';
 
     const subjItems = isID
       ? ['Konfigurasi MikroTik','Routing & Switching','Linux Server Administration','Fiber Optik Dasar','Administrasi Jaringan Komputer']
@@ -409,22 +426,7 @@ tcp    me         whatsapp     FILTERED (by request)`,
     subjList.className = 'exp-list';
     subjItems.forEach(function(s){ const li = document.createElement('li'); li.textContent = s; subjList.appendChild(li); });
 
-    const sp2 = document.createElement('div');
-    sp2.style.height = '0.7em';
-
-    const actLabel = document.createElement('div');
-    actLabel.style.cssText = 'color:var(--accent);margin-bottom:2px;';
-    actLabel.textContent = isID ? 'Aktivitas' : 'Activities';
-
-    const actList = document.createElement('ul');
-    actList.className = 'exp-list';
-    const actLi = document.createElement('li');
-    actLi.textContent = isID
-      ? 'Proyek praktikum jaringan komputer & administrasi server'
-      : 'Computer networking & server administration lab projects';
-    actList.appendChild(actLi);
-
-    [school, major, period, sp1, subjLabel, subjList, sp2, actLabel, actList].forEach(function(el){ wrap.appendChild(el); });
+    [school1, major1, period1, sp1, school2, major2, period2, sp2, subjLabel, subjList].forEach(function(el){ wrap.appendChild(el); });
     output.appendChild(wrap);
     scrollToBottom();
   }
