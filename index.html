@@ -395,17 +395,23 @@ tcp    me         whatsapp     FILTERED (by request)`,
     const wrap = document.createElement('div');
     wrap.style.cssText = 'margin:4px 0 16px;font-family:var(--font);font-size:inherit;line-height:1.6;';
 
-    // 1. Institut Teknologi dan Bisnis Asia Malang
+    // 1. Universitas Muhammadiyah Malang (UMM)
     const school1 = document.createElement('div');
     school1.style.cssText = 'color:var(--accent);font-weight:700;';
-    school1.textContent = '01. Institut Teknologi dan Bisnis Asia Malang';
+    school1.textContent = '01. Universitas Muhammadiyah Malang (UMM)';
 
     const major1 = document.createElement('div');
-    major1.textContent = isID ? 'Teknik Informatika' : 'Informatics Engineering';
+    major1.textContent = isID ? 'Akuakultur (Perikanan)' : 'Aquaculture (Fisheries)';
 
     const period1 = document.createElement('div');
     period1.style.color = 'var(--muted)';
     period1.textContent = isID ? 'Sep 2026 – Sekarang (Mahasiswa Aktif)' : 'Sep 2026 – Present (Active Student)';
+
+    const desc1 = document.createElement('div');
+    desc1.style.cssText = 'color:var(--text);font-size:0.95em;margin-top:2px;';
+    desc1.textContent = isID
+      ? 'Menempuh pendidikan tinggi Akuakultur (Perikanan) di UMM dengan fokus budidaya perairan modern, manajemen kualitas air & ekosistem akuatik, serta integrasi teknologi monitoring cerdas (Smart Aquaculture).'
+      : 'Pursuing higher education in Aquaculture (Fisheries) at UMM focusing on modern aquatic cultivation, water quality & aquatic ecosystem management, and smart aquaculture IoT monitoring systems.';
 
     const sp1 = document.createElement('div');
     sp1.style.height = '0.9em';
@@ -436,7 +442,7 @@ tcp    me         whatsapp     FILTERED (by request)`,
     subjList.className = 'exp-list';
     subjItems.forEach(function(s){ const li = document.createElement('li'); li.textContent = s; subjList.appendChild(li); });
 
-    [school1, major1, period1, sp1, school2, major2, period2, sp2, subjLabel, subjList].forEach(function(el){ wrap.appendChild(el); });
+    [school1, major1, period1, desc1, sp1, school2, major2, period2, sp2, subjLabel, subjList].forEach(function(el){ wrap.appendChild(el); });
     output.appendChild(wrap);
     scrollToBottom();
   }
